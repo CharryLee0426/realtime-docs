@@ -8,6 +8,7 @@ interface DocumentIdPageProps {
 const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
     // Dynamic APIs are asynchronous from NextJS 15.
     const { documentId } = await params;
+    console.log(documentId);
     return ( 
     <div className="min-h-screen bg=[#FAFBFD]">
         <Toolbar />
