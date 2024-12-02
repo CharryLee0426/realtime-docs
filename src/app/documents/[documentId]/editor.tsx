@@ -20,6 +20,7 @@ import TextAlign from '@tiptap/extension-text-align'
 
 // Custom Extensions
 import { FontSizeExtension } from '@/extensions/font-size';
+import { LineHeightExtension } from '@/extensions/line-height';
 
 import { useEditorStore } from '@/app/store/use-editor-store'
 
@@ -87,6 +88,7 @@ export const Editor = () => {
               types: ['heading', 'paragraph'],
             }),
             FontSizeExtension,
+            LineHeightExtension,
         ],
         content: `
         <table>
