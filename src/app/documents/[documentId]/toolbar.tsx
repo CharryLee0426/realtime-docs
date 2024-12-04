@@ -39,7 +39,6 @@ import { type Level } from "@tiptap/extension-heading";
 import { type ColorResult, SketchPicker } from "react-color";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { text } from "stream/consumers";
 
 interface ToolbarButtonProps {
     onClick?: () => void;
@@ -597,7 +596,7 @@ export const Toolbar = () => {
                 onClick: () => window.print(),
             },
 
-            // TODO: figure out why spell check button is not working
+            // Spell checking setting change needs text input to be applied
             {
                 label: "Spell Check",
                 icon: SpellCheckIcon,

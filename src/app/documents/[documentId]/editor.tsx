@@ -58,6 +58,7 @@ export const Editor = () => {
             attributes: {
                 style: "padding-left: 56px; padding-right: 56px;", // Added padding to the editor
                 class: "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text", // making the editor like a doc
+                spellcheck: "true", // Explicitly set the spellcheck attribute
             },
         },
         extensions: [
