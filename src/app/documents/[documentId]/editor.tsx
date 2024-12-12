@@ -28,6 +28,8 @@ import { Ruler } from './ruler';
 import { Threads } from "./threads";
 import { useStorage } from "@liveblocks/react";
 
+import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/app/constants/margins";
+
 interface EditorProps {
   initialContent?: string | undefined;
 }
@@ -70,7 +72,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
         },
         editorProps: {
             attributes: {
-                style: `padding-left: ${leftMargin ?? 56}px; padding-right: ${rightMargin ?? 56}px;`, // Added padding to the editor
+                style: `padding-left: ${leftMargin ?? LEFT_MARGIN_DEFAULT}px; padding-right: ${rightMargin ?? RIGHT_MARGIN_DEFAULT}px;`, // Added padding to the editor
                 class: "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text", // making the editor like a doc
                 spellcheck: "true", // Explicitly set the spellcheck attribute
             },

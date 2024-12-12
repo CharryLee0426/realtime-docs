@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 
+import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/app/constants/margins";
 import { useStorage, useMutation } from "@liveblocks/react";
 
 const markers = Array.from({ length: 83 }, (_, i) => i); // 83 is based on practices on cloud doc products
@@ -9,11 +10,11 @@ export const Ruler = () => {
     const PAGE_WIDTH = 816;
     const MINIMUM_SPACE = 100;
 
-    const leftMargin = useStorage((root) => root.leftMargin) ?? 56;
+    const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
     const setLeftMargin = useMutation(({ storage }, position: number) => {
         storage.set("leftMargin", position);
     }, []);
-    const rightMargin = useStorage((root) => root.rightMargin) ?? 56;
+    const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
     const setRightMargin = useMutation(({ storage }, position: number) => {
         storage.set("rightMargin", position);
     }, []);
@@ -56,10 +57,10 @@ export const Ruler = () => {
     }
 
     const handleLeftDoubleClick = () => {
-        setLeftMargin(56);
+        setLeftMargin(LEFT_MARGIN_DEFAULT);
     }
     const handleRightDoubleClick = () => {
-        setRightMargin(56);
+        setRightMargin(RIGHT_MARGIN_DEFAULT);
     }
 
 
