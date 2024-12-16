@@ -1,10 +1,9 @@
-import { CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { CardHeader, CardTitle } from "./ui/card";
 
 export const ChatHeader = () => {
     return (
-        <CardHeader>
-            <CardTitle>Title</CardTitle>
-            <CardDescription>Description</CardDescription>
+        <CardHeader className="bg-[#F8F6FF]">
+            <CardTitle>AI Agent</CardTitle>
         </CardHeader>
     );
 }

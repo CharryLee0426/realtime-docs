@@ -27,7 +27,7 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
             <div className="pt-[114px] print:pt-0">
                 <Editor initialContent={document.initialContent}/>
             </div>
-            <div className="fixed bottom-2 right-36 z-10">
+            <div className="fixed bottom-2 right-28 z-10">
                 <AIAssistant />
             </div>
         </div>
