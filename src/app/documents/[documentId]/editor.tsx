@@ -39,7 +39,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
     const rightMargin = useStorage((root) => root.rightMargin);
     const liveblocks = useLiveblocksExtension({
       initialContent,
-      offlineSupport_experimental: true, // maybe offlineSupport for future versions
+      offlineSupport_experimental: true, // It will cause a preload bug if other users send initial content as offline support
     });
     const { setEditor } = useEditorStore();
 

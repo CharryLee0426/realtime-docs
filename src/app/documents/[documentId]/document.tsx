@@ -7,6 +7,7 @@ import { Room } from "./room";
 import { Toolbar } from "./toolbar";
 import { api } from "../../../../convex/_generated/api";
 import { AIAssistant } from "./ai-assistent";
+import { useUser } from "@clerk/nextjs";
 
 interface DocumentProps {
     preloadedDocument: Preloaded<typeof api.documents.getById>;
@@ -15,7 +16,7 @@ interface DocumentProps {
 export const Document = ({ preloadedDocument }: DocumentProps) => {
     // Using preload content from convex to make sure its real-time availability
     const document = usePreloadedQuery(preloadedDocument);
-
+    const { user } = useUser();
 
     return ( 
     <Room>
@@ -25,7 +26,7 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
                 <Toolbar />
             </div>
             <div className="pt-[114px] print:pt-0">
-                <Editor initialContent={document.initialContent}/>
+                {user?.id === document.ownerId ? <Editor initialContent={document.initialContent}/> : <Editor />}
             </div>
             <div className="fixed bottom-2 right-28 z-10">
                 <AIAssistant />
