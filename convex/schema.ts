@@ -15,4 +15,13 @@ export default defineSchema({
         searchField: "title",
         filterFields: ["ownerId", "organizationId"],
     }),
+
+    chats: defineTable({
+        ownerId: v.string(),
+        documentId: v.string(),
+        content: v.string(),
+        role: v.string(),
+    })
+    .index("by_document_id", ["documentId"])
+    .index("by_owner_id", ["ownerId"])
 });

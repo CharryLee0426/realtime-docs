@@ -6,8 +6,8 @@ import { Navbar } from "./navbar";
 import { Room } from "./room";
 import { Toolbar } from "./toolbar";
 import { api } from "../../../../convex/_generated/api";
-import { AIAssistant } from "./ai-assistent";
 import { useUser } from "@clerk/nextjs";
+import { AIAssistant } from "./ai-assistent";
 
 interface DocumentProps {
     preloadedDocument: Preloaded<typeof api.documents.getById>;
@@ -29,7 +29,7 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
                 {user?.id === document.ownerId ? <Editor initialContent={document.initialContent}/> : <Editor />}
             </div>
             <div className="fixed bottom-2 right-28 z-10">
-                <AIAssistant />
+                <AIAssistant documentId={document._id} />
             </div>
         </div>
     </Room>
