@@ -6,7 +6,11 @@ import {
 import { BotMessageSquareIcon } from "lucide-react";
 import { ChatRoom } from "./chatroom";
 
-export const AIAssistant = () => {
+interface AIAssistantProps {
+    documentId: string;
+}
+
+export const AIAssistant = ({documentId}: AIAssistantProps) => {
     return (
         <div>
             <DropdownMenu>
@@ -22,7 +26,7 @@ export const AIAssistant = () => {
                     align="center"
                     className="border-none shadow-none bg-[#F9FBFD]"
                 >
-                    <ChatRoom />
+                    <ChatRoom documentId={documentId}/>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

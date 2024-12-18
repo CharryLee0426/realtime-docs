@@ -28,7 +28,7 @@ import Highlight from '@tiptap/extension-highlight';
 import { marked } from "marked";
 
 export interface ChatMessageProps {
-    role: "user" | "system";
+    role: string;
     content?: string;
     isLoading?: boolean;
 }
