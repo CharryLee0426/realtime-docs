@@ -3,6 +3,10 @@ import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
+// For testing project with clerks
+// See this site: https://clerk.com/docs/testing/postman-or-insomnia
+// Run this command in the project await window.Clerk.session.getToken({ template: '<the template name you chose above>' })
+
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -14,6 +18,9 @@ export async function POST(req: Request) {
 
        if (!prompt || typeof prompt !== "string") {
         return NextResponse.json({error: "Prompt is missed and must be a stirng"}, {status: 400});
+       }
+       if (prompt.length === 0) {
+        return NextResponse.json({error: "Cannot send an empty prompt"}, {status: 400});
        }
 
        // Authentication

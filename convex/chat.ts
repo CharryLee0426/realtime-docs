@@ -38,6 +38,29 @@ export const getByDocumentId = query({
     }
 })
 
+// update chat by chatId
+export const updateChatById = mutation({
+    args: {chatId: v.id("chats"), content: v.string()},
+    handler: async (ctx, args) => {
+        const user = await ctx.auth.getUserIdentity();
+        if (!user) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        const chat = await ctx.db.get(args.chatId);
+        if (!chat) {
+            throw new ConvexError("Not found");
+        }
+
+        if (chat.ownerId !== user.subject) {
+            throw new ConvexError("Unauthorized");
+        }
+
+        // Update the chat
+        await ctx.db.patch(args.chatId, {content: args.content});
+    }
+})
+
 // Delete all chats for the user and his document
 export const deleteByDocumentId = mutation({
     args: {documentId: v.string()},
