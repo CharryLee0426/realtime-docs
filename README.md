@@ -9,6 +9,8 @@ The main features are:
 2. Full function user authentication and organization system;
 3. Realtime database for realtime updating;
 4. Full function collaboration including room, member list, colorful cursor mention, and comment threads;
+5. An LLM driven AI Assistant for document writing and knowledge sharing;
+6. Stripe integration for subscription and payment;
 
 Try this platform at [here](https://docs-rho-ten.vercel.app)
 
@@ -46,6 +48,14 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 
 LIVEBLOCK_SECRET_KEY=
+
+# OpenAI
+OPENAI_API_KEY=
+# Stripe
+NEXT_PUBLIC_URL=http://localhost:3000
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
 ```
 
 The keys can be gotten from the official websites of Convex, Clerk and Liveblocks.

@@ -45,12 +45,14 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { SubscriptionButton } from "@/components/subscription-button";
 
 interface NavbarProps {
     data: Doc<"documents">;
+    isPro: boolean;
 }
 
-export const Navbar =  ({ data }: NavbarProps) => {
+export const Navbar =  ({ data, isPro }: NavbarProps) => {
     const router = useRouter();
     const { editor } = useEditorStore();
 
@@ -265,6 +267,7 @@ export const Navbar =  ({ data }: NavbarProps) => {
             <div className="flex gap-3 items-center pl-6">
                 <Avatars />
                 <Inbox />
+                <SubscriptionButton isPro={isPro} />
                 <OrganizationSwitcher 
                     afterCreateOrganizationUrl="/"
                     afterLeaveOrganizationUrl="/"
