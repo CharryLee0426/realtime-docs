@@ -29,18 +29,31 @@ import { Threads } from "./threads";
 import { useStorage } from "@liveblocks/react";
 
 import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/app/constants/margins";
+import { useEffect } from "react";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 interface EditorProps {
+  id: Id<"documents">;
   initialContent?: string | undefined;
 }
 
-export const Editor = ({ initialContent }: EditorProps) => {
+export const Editor = ({ initialContent, id }: EditorProps) => {
     const leftMargin = useStorage((root) => root.leftMargin);
     const rightMargin = useStorage((root) => root.rightMargin);
+    const updatePreloaded = useMutation(api.documents.updateIsPreloadedById);
     const liveblocks = useLiveblocksExtension({
       initialContent,
       offlineSupport_experimental: true, // It will cause a preload bug if other users send initial content as offline support
     });
+
+    useEffect(() => {
+      if (initialContent) {
+        updatePreloaded({ id: id });
+      }
+    }, []);
+
     const { setEditor } = useEditorStore();
 
     const editor = useEditor({

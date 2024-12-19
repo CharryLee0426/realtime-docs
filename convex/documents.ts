@@ -18,6 +18,7 @@ export const create = mutation({
       ownerId: user.subject,
       organizationId,
       initialContent: args.initialContent,
+      isPreloaded: false,
     });
 
     return documentId;
@@ -154,3 +155,31 @@ export const updateById = mutation({
     await ctx.db.patch(args.id, {title: args.title});
   },
 });
+
+export const updateIsPreloadedById = mutation({
+  args: {id: v.id("documents")},
+  handler: async (ctx, args) => {
+    const user = await ctx.auth.getUserIdentity();
+
+    if (!user) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    const organizationId = (user.organization_id ?? undefined) as | string | undefined;
+
+    const document = await ctx.db.get(args.id);
+
+    if (!document) {
+      throw new ConvexError("Document not found");
+    }
+
+    const isOwner = document.ownerId === user.subject;
+    const isOrganizationMember = !!(document.organizationId && document.organizationId === organizationId);
+
+    if (!isOwner && !isOrganizationMember) {
+      throw new ConvexError("Unauthorized");
+    }
+
+    await ctx.db.patch(args.id, {isPreloaded: true});
+  },
+})

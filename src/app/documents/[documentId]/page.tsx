@@ -3,6 +3,7 @@ import { Id } from "../../../../convex/_generated/dataModel";
 import { Document } from "./document";
 import { auth } from "@clerk/nextjs/server";
 import { preloadQuery } from "convex/nextjs";
+import { Room } from "./room";
 
 interface DocumentIdPageProps {
     params: Promise<{ documentId: Id<"documents"> }>;
@@ -28,7 +29,9 @@ const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
     );
 
     return ( 
-        <Document preloadedDocument={preloadedDocument}/>
+        <Room>
+            <Document preloadedDocument={preloadedDocument}/>
+        </Room>
     );
 }
  
