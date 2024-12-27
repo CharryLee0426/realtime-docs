@@ -33,6 +33,7 @@ import { useEffect } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
+import { toast } from "sonner";
 
 interface EditorProps {
   id: Id<"documents">;
@@ -53,6 +54,25 @@ export const Editor = ({ initialContent, id }: EditorProps) => {
         updatePreloaded({ id: id });
       }
     }, []);
+
+    // Function to upload an image via API
+    const uploadImage = async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", file.name);
+
+      const response = await fetch("/api/image", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const data = await response.json();
+      return data.serveUrl;
+    };
 
     const { setEditor } = useEditorStore();
 
@@ -88,6 +108,27 @@ export const Editor = ({ initialContent, id }: EditorProps) => {
                 style: `padding-left: ${leftMargin ?? LEFT_MARGIN_DEFAULT}px; padding-right: ${rightMargin ?? RIGHT_MARGIN_DEFAULT}px;`, // Added padding to the editor
                 class: "focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text", // making the editor like a doc
                 spellcheck: "true", // Explicitly set the spellcheck attribute
+            },
+
+            // Handle image drag-and-drop on the client side
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            handleDrop: (view, event, slice, moved) => {
+              const file = event.dataTransfer?.files[0];
+              if (file && file.type.startsWith("image/")) {
+                event.preventDefault(); // Prevent default behavior
+
+                (async () => {
+                  try {
+                    const imageUrl = await uploadImage(file); // Upload the image
+                    editor?.chain().focus().setImage({ src: imageUrl, alt: imageUrl, title: imageUrl }).run(); // Insert the uploaded image
+                  } catch (error) {
+                    toast.error(`Image upload failed: ${error}`);
+                  }
+                })();
+
+                return true;
+              }
+              return false;
             },
         },
         extensions: [

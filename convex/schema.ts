@@ -36,4 +36,9 @@ export default defineSchema({
     .index("by_owner_id", ["ownerId"])
     .index("by_stripe_customer_id", ["stripeCustomerId"])
     .index("by_stripe_subscription_id", ["stripeSubscriptionId"]),
+
+    images: defineTable({
+        ownerId: v.string(),
+    })
+    .index("by_owner_id", ["ownerId"]),
 });

@@ -15,6 +15,7 @@ import type {
 } from "convex/server";
 import type * as chats from "../chats.js";
 import type * as documents from "../documents.js";
+import type * as images from "../images.js";
 import type * as subscriptions from "../subscriptions.js";
 
 /**
@@ -28,6 +29,7 @@ import type * as subscriptions from "../subscriptions.js";
 declare const fullApi: ApiFromModules<{
   chats: typeof chats;
   documents: typeof documents;
+  images: typeof images;
   subscriptions: typeof subscriptions;
 }>;
 export declare const api: FilterApi<

@@ -266,23 +266,45 @@ const ImageButton = () => {
         editor?.chain().focus().setImage({ src }).run();
     };
 
-    // for file upload
-    const onUpload = () => {
+    // File upload with API integration
+    const onUpload = async () => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
-
-        input.onchange = (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-
-            if (file) {
-                const imageUrl = URL.createObjectURL(file);
-                onChange(imageUrl);
+    
+        input.onchange = async (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+    
+        if (file) {
+            try {
+            // Create FormData to send the file
+            const formData = new FormData();
+            formData.append("file", file);
+    
+            // Make an API call to upload the file
+            const response = await fetch("/api/image", {
+                method: "POST",
+                body: formData,
+            });
+    
+            if (!response.ok) {
+                throw new Error("Failed to upload the image");
+            }
+    
+            // Parse the API response to get the uploaded image URL
+            const data = await response.json();
+            const imageUrl = data.serveUrl;
+    
+            onChange(imageUrl);
+            } catch (error) {
+            console.error("Image upload error:", error);
+            alert("Image upload failed. Please try again.");
             }
         }
-
+        };
+    
         input.click();
-    }
+    };
 
     const handleImageUrlSubmit = () => {
         if (imageUrl) {
